@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <section>
+   <h1>Shopping Cart</h1>
+   <br>
+   <div class="row">
+    <table class="table table-striped text-left">
+      <tr class="text-left">
+        <th>Product</th>
+        <th>Price</th>
+      </tr>
+      {% for item in order.get_cart_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>$ {{ item.product.price }}</td>
+      </tr>
+      {% empty %}
+      {% endfor %}
+      <tr>
+        <td colspan=1>
+          <strong>Order Total:</strong>
+        </td>
+        <td colspan= 1>
+          <strong>$ {{ order.get_cart_total }}</strong>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=1 >
+          <br>
+          <a href="{% url 'shopping_cart:checkout' %}" class="pull-right btn btn-success">Proceed To Checkout</a>
+          <hr>
+          <p>Changed you mind?</p>
+          <a href="{% url 'shopping_cart:empty_cart' %}" class="btn btn-danger pull-left">Empty Cart & Return to Shop</a> 
+        </td>
+        <td colspan=2>
+        </td>
+      </tr>
+    </table>
+   </div>
+ </section>
+{% endblock %}

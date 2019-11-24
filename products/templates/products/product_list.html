@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+<html>
+    <body>
+        {% block content %}
+            {{ message }}
+            <h1> My Shop </h1>
+            <hr>
+            <div class="row">
+            {% for object in object_list %}
+                <div class="col-sm-4">
+                    <strong>{{ object.name }}</strong>
+                    <p>Price: ${{ object.price }}</p>
+                    {% if product_in_cart %}
+                    <a href="{% url 'shopping_cart:order_summary' %}" class="btn btn-success">Go to Cart</a>
+                    {% else %}
+                    <a href="{% url 'shopping_cart:add_to_cart' object.id %}" class="btn btn-primary">Add to Cart</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+            <div class="empty_cart">
+                <hr>
+                <a href="{% url 'shopping_cart:empty_cart' %}" class="btn btn-danger">Empty Cart</a>
+            </div>
+        {% endblock content %}
+    </body>
+</html>
